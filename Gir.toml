@@ -1,0 +1,60 @@
+[options]
+girs_directories = ["../gir-files"]
+library = "XApp"
+version = "1.0"
+min_cfg_version = "2.2.15"
+target_path = "."
+work_mode = "normal"
+generate_builder = true
+generate_safety_asserts = true
+deprecate_by_min_version = true
+single_version_file = true
+
+generate = [
+	"XApp.FavoriteInfo",
+#	"XApp.Favorites",
+	"XApp.GtkWindow",
+	"XApp.IconChooserButton",
+	"XApp.IconChooserDialog",
+	"XApp.IconSize",
+#	"XApp.KbdLayoutController",
+	"XApp.MonitorBlanker",
+	"XApp.Object",
+	"XApp.ObjectManagerClient",
+	"XApp.ObjectProxy",
+	"XApp.ObjectSkeleton",
+	"XApp.PreferencesWindow",
+	"XApp.ScrollDirection",
+	"XApp.StackSidebar",
+	"XApp.StatusIcon",
+	"XApp.StatusIconInterface",
+	"XApp.StatusIconInterfaceProxy",
+	"XApp.StatusIconInterfaceSkeleton",
+	"XApp.StatusIconMonitor",
+	"XApp.StatusIconState",
+	"XApp.StyleManager",
+]
+
+manual = [
+	"cairo.Context",
+	"Gio.AsyncReadyCallback",
+	"Gio.AsyncResult",
+	"Gio.BusType",
+	"Gio.Cancellable",
+	"Gio.DBusConnection",
+	"Gio.DBusInterface",
+	"Gio.DBusInterfaceInfo",
+	"Gio.DBusMethodInvocation",
+#	"Gio.DBusObjectManagerClientFlags",
+	"Gio.DBusProxyFlags",
+	"GLib.Error",
+	"GObject.GObjectClass",
+	"Gtk.IconSize",
+	"Gtk.Menu",
+	"Gtk.PackType",
+	"Gtk.ResponseType",
+	"Gtk.Stack",
+	"Gtk.Widget",
+	"Gtk.Window",
+	"Gtk.WindowType",
+]

@@ -1,0 +1,46 @@
+[package]
+name = "xapp-sys"
+version = "0.0.1"
+edition = "2021"
+build = "build.rs"
+[package.metadata.system-deps.xapp]
+name = "xapp"
+version = "2.2.15"
+[package.metadata.docs.rs]
+features = ["dox"]
+
+[lib]
+name = "xapp_sys"
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.cairo]
+package = "cairo-sys-rs"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gio]
+package = "gio-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.glib]
+package = "glib-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gobject]
+package = "gobject-sys"
+git = "https://github.com/gtk-rs/gtk-rs-core"
+
+[dependencies.gtk]
+package = "gtk-sys"
+git = "https://github.com/gtk-rs/gtk3-rs"
+
+[build-dependencies]
+system-deps = "6"
+
+[dev-dependencies]
+shell-words = "1.0.0"
+tempfile = "3"
+
+[features]
+dox = []
