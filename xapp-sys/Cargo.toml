@@ -43,4 +43,4 @@ shell-words = "1.0.0"
 tempfile = "3"
 
 [features]
-dox = []
+dox = ["cairo/dox", "gio/dox", "glib/dox", "gobject/dox", "gtk/dox"]

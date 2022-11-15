@@ -24,8 +24,10 @@ name = "cairo-sys-rs"
 version = "0.17.0"
 source = "git+https://github.com/gtk-rs/gtk-rs-core#4f5e597590e30183c819c9cf15f74bd87e9ac687"
 dependencies = [
+ "glib-sys",
  "libc",
  "system-deps",
+ "x11",
 ]
 
 [[package]]
@@ -265,6 +267,16 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
+
+[[package]]
+name = "x11"
+version = "2.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f7ae97874a928d821b061fce3d1fc52f08071dd53c89a6102bc06efcac3b2908"
+dependencies = [
+ "libc",
+ "pkg-config",
+]
 
 [[package]]
 name = "xapp-sys"

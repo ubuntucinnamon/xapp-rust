@@ -48,7 +48,7 @@ manual = [
 #	"Gio.DBusObjectManagerClientFlags",
 	"Gio.DBusProxyFlags",
 	"GLib.Error",
-	"GObject.GObjectClass",
+#	"GObject.ObjectClass",
 	"Gtk.IconSize",
 	"Gtk.Menu",
 	"Gtk.PackType",
