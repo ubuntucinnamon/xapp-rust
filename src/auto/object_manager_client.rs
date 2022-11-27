@@ -14,7 +14,7 @@ use std::ptr;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
 glib::wrapper! {
     #[doc(alias = "XAppObjectManagerClient")]
-    pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>) @extends gio::DBusObjectManagerClient;
+    pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>) @extends gio::DBusObjectManagerClient, @implements gio::AsyncInitable, gio::Initable;
 
     match fn {
         type_ => || ffi::xapp_object_manager_client_get_type(),
@@ -22,6 +22,28 @@ glib::wrapper! {
 }
 
 #[cfg(not(any(feature = "gio_v2_30", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_22", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppObjectManagerClient")]
+    pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>) @implements gio::AsyncInitable, gio::Initable;
+
+    match fn {
+        type_ => || ffi::xapp_object_manager_client_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_22", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_22", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppObjectManagerClient")]
+    pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>) @implements gio::Initable;
+
+    match fn {
+        type_ => || ffi::xapp_object_manager_client_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_22", feature = "dox")))]
 glib::wrapper! {
     #[doc(alias = "XAppObjectManagerClient")]
     pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>);

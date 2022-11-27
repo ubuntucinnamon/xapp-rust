@@ -13,11 +13,33 @@ use std::fmt;
 use std::pin::Pin;
 use std::ptr;
 
-#[cfg(any(feature = "gio_v2_30", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+#[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
 glib::wrapper! {
     #[doc(alias = "XAppStatusIconInterfaceProxy")]
-    pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @implements gio::DBusInterface, StatusIconInterface;
+    pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @extends gio::DBusProxy, @implements gio::AsyncInitable, gio::DBusInterface, gio::Initable, StatusIconInterface;
+
+    match fn {
+        type_ => || ffi::xapp_status_icon_interface_proxy_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_26", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_22", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppStatusIconInterfaceProxy")]
+    pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @implements gio::AsyncInitable, gio::DBusInterface, gio::Initable, StatusIconInterface;
+
+    match fn {
+        type_ => || ffi::xapp_status_icon_interface_proxy_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_22", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppStatusIconInterfaceProxy")]
+    pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @implements gio::DBusInterface, gio::Initable, StatusIconInterface;
 
     match fn {
         type_ => || ffi::xapp_status_icon_interface_proxy_get_type(),
@@ -25,6 +47,17 @@ glib::wrapper! {
 }
 
 #[cfg(not(any(feature = "gio_v2_30", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_22", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppStatusIconInterfaceProxy")]
+    pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @implements gio::Initable, StatusIconInterface;
+
+    match fn {
+        type_ => || ffi::xapp_status_icon_interface_proxy_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_22", feature = "dox")))]
 glib::wrapper! {
     #[doc(alias = "XAppStatusIconInterfaceProxy")]
     pub struct StatusIconInterfaceProxy(Object<ffi::XAppStatusIconInterfaceProxy, ffi::XAppStatusIconInterfaceProxyClass>) @implements StatusIconInterface;
@@ -175,6 +208,30 @@ impl StatusIconInterfaceProxy {
         /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct StatusIconInterfaceProxyBuilder {
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_bus_type: Option<gio::BusType>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_connection: Option<gio::DBusConnection>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_default_timeout: Option<i32>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_flags: Option<gio::DBusProxyFlags>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_interface_info: Option<gio::DBusInterfaceInfo>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_interface_name: Option<String>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_name: Option<String>,
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    g_object_path: Option<String>,
     icon_name: Option<String>,
     icon_size: Option<i32>,
     label: Option<String>,
@@ -199,6 +256,38 @@ impl StatusIconInterfaceProxyBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StatusIconInterfaceProxy {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_bus_type) = self.g_bus_type {
+                properties.push(("g-bus-type", g_bus_type));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_connection) = self.g_connection {
+                properties.push(("g-connection", g_connection));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_default_timeout) = self.g_default_timeout {
+                properties.push(("g-default-timeout", g_default_timeout));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_flags) = self.g_flags {
+                properties.push(("g-flags", g_flags));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_interface_info) = self.g_interface_info {
+                properties.push(("g-interface-info", g_interface_info));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_interface_name) = self.g_interface_name {
+                properties.push(("g-interface-name", g_interface_name));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_name) = self.g_name {
+                properties.push(("g-name", g_name));
+            }
+        #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+if let Some(ref g_object_path) = self.g_object_path {
+                properties.push(("g-object-path", g_object_path));
+            }
 if let Some(ref icon_name) = self.icon_name {
                 properties.push(("icon-name", icon_name));
             }
@@ -228,6 +317,62 @@ if let Some(ref visible) = self.visible {
             }
         glib::Object::new::<StatusIconInterfaceProxy>(&properties)
 
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_bus_type(mut self, g_bus_type: gio::BusType) -> Self {
+        self.g_bus_type = Some(g_bus_type);
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_connection(mut self, g_connection: &gio::DBusConnection) -> Self {
+        self.g_connection = Some(g_connection.clone());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_default_timeout(mut self, g_default_timeout: i32) -> Self {
+        self.g_default_timeout = Some(g_default_timeout);
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_flags(mut self, g_flags: gio::DBusProxyFlags) -> Self {
+        self.g_flags = Some(g_flags);
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_interface_info(mut self, g_interface_info: &gio::DBusInterfaceInfo) -> Self {
+        self.g_interface_info = Some(g_interface_info.clone());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_interface_name(mut self, g_interface_name: &str) -> Self {
+        self.g_interface_name = Some(g_interface_name.to_string());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_name(mut self, g_name: &str) -> Self {
+        self.g_name = Some(g_name.to_string());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_26", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_26")))]
+    pub fn g_object_path(mut self, g_object_path: &str) -> Self {
+        self.g_object_path = Some(g_object_path.to_string());
+        self
     }
 
     pub fn icon_name(mut self, icon_name: &str) -> Self {

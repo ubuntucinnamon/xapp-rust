@@ -34,8 +34,11 @@ generate = [
 	"XApp.StyleManager",
 ]
 
+# commented = FIXME: breaks build
 manual = [
+#	"Atk.ImplementorIface",
 	"cairo.Context",
+	"Gio.AsyncInitable",
 	"Gio.AsyncReadyCallback",
 	"Gio.AsyncResult",
 	"Gio.BusType",
@@ -43,14 +46,28 @@ manual = [
 	"Gio.DBusConnection",
 	"Gio.DBusInterface",
 	"Gio.DBusInterfaceInfo",
+	"Gio.DBusInterfaceSkeleton",
 	"Gio.DBusMethodInvocation",
+	"Gio.DBusObject",
+#	"Gio.DBusObjectManager",
 	"Gio.DBusObjectManagerClient",
 #	"Gio.DBusObjectManagerClientFlags",
+	"Gio.DBusObjectProxy",
+	"Gio.DBusObjectSkeleton",
+	"Gio.DBusProxy",
 	"Gio.DBusProxyFlags",
+	"Gio.Initable",
 	"GLib.DestroyNotify",
 	"GLib.Error",
+#	"GObject.InitiallyUnowned",
 #	"GObject.ObjectClass",
 	"Gtk.Action",
+	"Gtk.Actionable",
+#	"Gtk.Activatable",
+	"Gtk.Bin",
+	"Gtk.Buildable",
+	"Gtk.Button",
+	"Gtk.Container",
 	"Gtk.IconSize",
 	"Gtk.Menu",
 	"Gtk.PackType",
@@ -61,6 +78,7 @@ manual = [
 	"Gtk.WindowType",
 ]
 
+# FIXME: these need reimplmentations
 [[object]]
 name = "XApp.Favorites"
 status = "generate"

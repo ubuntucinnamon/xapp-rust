@@ -16,7 +16,7 @@ use std::mem::transmute;
 
 glib::wrapper! {
     #[doc(alias = "XAppStackSidebar")]
-    pub struct StackSidebar(Object<ffi::XAppStackSidebar, ffi::XAppStackSidebarClass>) @extends gtk::Widget;
+    pub struct StackSidebar(Object<ffi::XAppStackSidebar, ffi::XAppStackSidebarClass>) @extends gtk::Bin, gtk::Container, gtk::Widget, @implements gtk::Buildable;
 
     match fn {
         type_ => || ffi::xapp_stack_sidebar_get_type(),
@@ -84,6 +84,9 @@ impl Default for StackSidebar {
 #[must_use = "The builder must be built to be used"]
 pub struct StackSidebarBuilder {
     stack: Option<gtk::Stack>,
+    border_width: Option<u32>,
+    child: Option<gtk::Widget>,
+    //resize-mode: /*Unknown type*/,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
     can_focus: Option<bool>,
@@ -140,7 +143,7 @@ pub struct StackSidebarBuilder {
     #[cfg(any(feature = "gtk_v3_8", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_8")))]
     opacity: Option<f64>,
-    //parent: /*Unknown type*/,
+    parent: Option<gtk::Container>,
     receives_default: Option<bool>,
     sensitive: Option<bool>,
     //style: /*Unknown type*/,
@@ -176,6 +179,12 @@ impl StackSidebarBuilder {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
 if let Some(ref stack) = self.stack {
                 properties.push(("stack", stack));
+            }
+if let Some(ref border_width) = self.border_width {
+                properties.push(("border-width", border_width));
+            }
+if let Some(ref child) = self.child {
+                properties.push(("child", child));
             }
 if let Some(ref app_paintable) = self.app_paintable {
                 properties.push(("app-paintable", app_paintable));
@@ -260,6 +269,9 @@ if let Some(ref no_show_all) = self.no_show_all {
 if let Some(ref opacity) = self.opacity {
                 properties.push(("opacity", opacity));
             }
+if let Some(ref parent) = self.parent {
+                properties.push(("parent", parent));
+            }
 if let Some(ref receives_default) = self.receives_default {
                 properties.push(("receives-default", receives_default));
             }
@@ -294,6 +306,16 @@ if let Some(ref width_request) = self.width_request {
 
     pub fn stack(mut self, stack: &impl IsA<gtk::Stack>) -> Self {
         self.stack = Some(stack.clone().upcast());
+        self
+    }
+
+    pub fn border_width(mut self, border_width: u32) -> Self {
+        self.border_width = Some(border_width);
+        self
+    }
+
+    pub fn child(mut self, child: &impl IsA<gtk::Widget>) -> Self {
+        self.child = Some(child.clone().upcast());
         self
     }
 
@@ -440,6 +462,11 @@ if let Some(ref width_request) = self.width_request {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_8")))]
     pub fn opacity(mut self, opacity: f64) -> Self {
         self.opacity = Some(opacity);
+        self
+    }
+
+    pub fn parent(mut self, parent: &impl IsA<gtk::Container>) -> Self {
+        self.parent = Some(parent.clone().upcast());
         self
     }
 

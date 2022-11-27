@@ -15,9 +15,21 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
+#[cfg(any(feature = "gtk_v3_4", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_4")))]
 glib::wrapper! {
     #[doc(alias = "XAppIconChooserButton")]
-    pub struct IconChooserButton(Object<ffi::XAppIconChooserButton, ffi::XAppIconChooserButtonClass>) @extends gtk::Widget;
+    pub struct IconChooserButton(Object<ffi::XAppIconChooserButton, ffi::XAppIconChooserButtonClass>) @extends gtk::Button, gtk::Bin, gtk::Container, gtk::Widget, @implements gtk::Buildable, gtk::Actionable;
+
+    match fn {
+        type_ => || ffi::xapp_icon_chooser_button_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gtk_v3_4", feature = "dox")))]
+glib::wrapper! {
+    #[doc(alias = "XAppIconChooserButton")]
+    pub struct IconChooserButton(Object<ffi::XAppIconChooserButton, ffi::XAppIconChooserButtonClass>) @extends gtk::Button, gtk::Bin, gtk::Container, gtk::Widget, @implements gtk::Buildable;
 
     match fn {
         type_ => || ffi::xapp_icon_chooser_button_get_type(),
@@ -157,6 +169,29 @@ pub struct IconChooserButtonBuilder {
     category: Option<String>,
     icon: Option<String>,
     icon_size: Option<gtk::IconSize>,
+    #[cfg(any(feature = "gtk_v3_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_6")))]
+    always_show_image: Option<bool>,
+    #[cfg(any(feature = "gtk_v2_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_6")))]
+    image: Option<gtk::Widget>,
+    //image-position: /*Unknown type*/,
+    label: Option<String>,
+    //relief: /*Unknown type*/,
+    #[cfg_attr(feature = "v3_10", deprecated = "Since 3.10")]
+    use_stock: Option<bool>,
+    use_underline: Option<bool>,
+    #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_4")))]
+    #[cfg_attr(feature = "v3_14", deprecated = "Since 3.14")]
+    xalign: Option<f32>,
+    #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_4")))]
+    #[cfg_attr(feature = "v3_14", deprecated = "Since 3.14")]
+    yalign: Option<f32>,
+    border_width: Option<u32>,
+    child: Option<gtk::Widget>,
+    //resize-mode: /*Unknown type*/,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
     can_focus: Option<bool>,
@@ -213,7 +248,7 @@ pub struct IconChooserButtonBuilder {
     #[cfg(any(feature = "gtk_v3_8", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_8")))]
     opacity: Option<f64>,
-    //parent: /*Unknown type*/,
+    parent: Option<gtk::Container>,
     receives_default: Option<bool>,
     sensitive: Option<bool>,
     //style: /*Unknown type*/,
@@ -232,6 +267,8 @@ pub struct IconChooserButtonBuilder {
     vexpand_set: Option<bool>,
     visible: Option<bool>,
     width_request: Option<i32>,
+    action_name: Option<String>,
+    //action-target: /*Unknown type*/,
 }
 
 impl IconChooserButtonBuilder {
@@ -255,6 +292,37 @@ if let Some(ref icon) = self.icon {
             }
 if let Some(ref icon_size) = self.icon_size {
                 properties.push(("icon-size", icon_size));
+            }
+        #[cfg(any(feature = "gtk_v3_6", feature = "dox"))]
+if let Some(ref always_show_image) = self.always_show_image {
+                properties.push(("always-show-image", always_show_image));
+            }
+        #[cfg(any(feature = "gtk_v2_6", feature = "dox"))]
+if let Some(ref image) = self.image {
+                properties.push(("image", image));
+            }
+if let Some(ref label) = self.label {
+                properties.push(("label", label));
+            }
+if let Some(ref use_stock) = self.use_stock {
+                properties.push(("use-stock", use_stock));
+            }
+if let Some(ref use_underline) = self.use_underline {
+                properties.push(("use-underline", use_underline));
+            }
+        #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+if let Some(ref xalign) = self.xalign {
+                properties.push(("xalign", xalign));
+            }
+        #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+if let Some(ref yalign) = self.yalign {
+                properties.push(("yalign", yalign));
+            }
+if let Some(ref border_width) = self.border_width {
+                properties.push(("border-width", border_width));
+            }
+if let Some(ref child) = self.child {
+                properties.push(("child", child));
             }
 if let Some(ref app_paintable) = self.app_paintable {
                 properties.push(("app-paintable", app_paintable));
@@ -339,6 +407,9 @@ if let Some(ref no_show_all) = self.no_show_all {
 if let Some(ref opacity) = self.opacity {
                 properties.push(("opacity", opacity));
             }
+if let Some(ref parent) = self.parent {
+                properties.push(("parent", parent));
+            }
 if let Some(ref receives_default) = self.receives_default {
                 properties.push(("receives-default", receives_default));
             }
@@ -367,6 +438,9 @@ if let Some(ref visible) = self.visible {
 if let Some(ref width_request) = self.width_request {
                 properties.push(("width-request", width_request));
             }
+if let Some(ref action_name) = self.action_name {
+                properties.push(("action-name", action_name));
+            }
         glib::Object::new::<IconChooserButton>(&properties)
 
     }
@@ -383,6 +457,62 @@ if let Some(ref width_request) = self.width_request {
 
     pub fn icon_size(mut self, icon_size: gtk::IconSize) -> Self {
         self.icon_size = Some(icon_size);
+        self
+    }
+
+    #[cfg(any(feature = "gtk_v3_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_6")))]
+    pub fn always_show_image(mut self, always_show_image: bool) -> Self {
+        self.always_show_image = Some(always_show_image);
+        self
+    }
+
+    #[cfg(any(feature = "gtk_v2_6", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_6")))]
+    pub fn image(mut self, image: &impl IsA<gtk::Widget>) -> Self {
+        self.image = Some(image.clone().upcast());
+        self
+    }
+
+    pub fn label(mut self, label: &str) -> Self {
+        self.label = Some(label.to_string());
+        self
+    }
+
+    #[cfg_attr(feature = "v3_10", deprecated = "Since 3.10")]
+    pub fn use_stock(mut self, use_stock: bool) -> Self {
+        self.use_stock = Some(use_stock);
+        self
+    }
+
+    pub fn use_underline(mut self, use_underline: bool) -> Self {
+        self.use_underline = Some(use_underline);
+        self
+    }
+
+    #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_4")))]
+    #[cfg_attr(feature = "v3_14", deprecated = "Since 3.14")]
+    pub fn xalign(mut self, xalign: f32) -> Self {
+        self.xalign = Some(xalign);
+        self
+    }
+
+    #[cfg(any(feature = "gtk_v2_4", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v2_4")))]
+    #[cfg_attr(feature = "v3_14", deprecated = "Since 3.14")]
+    pub fn yalign(mut self, yalign: f32) -> Self {
+        self.yalign = Some(yalign);
+        self
+    }
+
+    pub fn border_width(mut self, border_width: u32) -> Self {
+        self.border_width = Some(border_width);
+        self
+    }
+
+    pub fn child(mut self, child: &impl IsA<gtk::Widget>) -> Self {
+        self.child = Some(child.clone().upcast());
         self
     }
 
@@ -532,6 +662,11 @@ if let Some(ref width_request) = self.width_request {
         self
     }
 
+    pub fn parent(mut self, parent: &impl IsA<gtk::Container>) -> Self {
+        self.parent = Some(parent.clone().upcast());
+        self
+    }
+
     pub fn receives_default(mut self, receives_default: bool) -> Self {
         self.receives_default = Some(receives_default);
         self
@@ -577,6 +712,11 @@ if let Some(ref width_request) = self.width_request {
 
     pub fn width_request(mut self, width_request: i32) -> Self {
         self.width_request = Some(width_request);
+        self
+    }
+
+    pub fn action_name(mut self, action_name: &str) -> Self {
+        self.action_name = Some(action_name.to_string());
         self
     }
 }

@@ -11,9 +11,21 @@ use glib::StaticType;
 use glib::ToValue;
 use std::fmt;
 
+#[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
 glib::wrapper! {
     #[doc(alias = "XAppObjectSkeleton")]
-    pub struct ObjectSkeleton(Object<ffi::XAppObjectSkeleton, ffi::XAppObjectSkeletonClass>) @implements Object;
+    pub struct ObjectSkeleton(Object<ffi::XAppObjectSkeleton, ffi::XAppObjectSkeletonClass>) @extends gio::DBusObjectSkeleton, @implements gio::DBusObject, Object;
+
+    match fn {
+        type_ => || ffi::xapp_object_skeleton_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_30", feature = "dox")))]
+glib::wrapper! {
+    #[doc(alias = "XAppObjectSkeleton")]
+    pub struct ObjectSkeleton(Object<ffi::XAppObjectSkeleton, ffi::XAppObjectSkeletonClass>) @implements gio::DBusObject, Object;
 
     match fn {
         type_ => || ffi::xapp_object_skeleton_get_type(),
@@ -55,6 +67,9 @@ impl Default for ObjectSkeleton {
         /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct ObjectSkeletonBuilder {
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    g_object_path: Option<String>,
     status_icon_interface: Option<StatusIconInterface>,
 }
 
@@ -71,11 +86,22 @@ impl ObjectSkeletonBuilder {
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ObjectSkeleton {
         let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+if let Some(ref g_object_path) = self.g_object_path {
+                properties.push(("g-object-path", g_object_path));
+            }
 if let Some(ref status_icon_interface) = self.status_icon_interface {
                 properties.push(("status-icon-interface", status_icon_interface));
             }
         glib::Object::new::<ObjectSkeleton>(&properties)
 
+    }
+
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    pub fn g_object_path(mut self, g_object_path: &str) -> Self {
+        self.g_object_path = Some(g_object_path.to_string());
+        self
     }
 
     pub fn status_icon_interface(mut self, status_icon_interface: &impl IsA<StatusIconInterface>) -> Self {

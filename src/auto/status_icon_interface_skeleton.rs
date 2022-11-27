@@ -13,6 +13,17 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
 glib::wrapper! {
     #[doc(alias = "XAppStatusIconInterfaceSkeleton")]
+    pub struct StatusIconInterfaceSkeleton(Object<ffi::XAppStatusIconInterfaceSkeleton, ffi::XAppStatusIconInterfaceSkeletonClass>) @extends gio::DBusInterfaceSkeleton, @implements gio::DBusInterface, StatusIconInterface;
+
+    match fn {
+        type_ => || ffi::xapp_status_icon_interface_skeleton_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_30", feature = "dox")))]
+#[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+glib::wrapper! {
+    #[doc(alias = "XAppStatusIconInterfaceSkeleton")]
     pub struct StatusIconInterfaceSkeleton(Object<ffi::XAppStatusIconInterfaceSkeleton, ffi::XAppStatusIconInterfaceSkeletonClass>) @implements gio::DBusInterface, StatusIconInterface;
 
     match fn {
@@ -65,6 +76,7 @@ impl Default for StatusIconInterfaceSkeleton {
         /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
 #[must_use = "The builder must be built to be used"]
 pub struct StatusIconInterfaceSkeletonBuilder {
+    //g-flags: /*Unknown type*/,
     icon_name: Option<String>,
     icon_size: Option<i32>,
     label: Option<String>,

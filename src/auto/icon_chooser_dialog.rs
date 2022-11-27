@@ -19,7 +19,7 @@ use std::mem::transmute;
 
 glib::wrapper! {
     #[doc(alias = "XAppIconChooserDialog")]
-    pub struct IconChooserDialog(Object<ffi::XAppIconChooserDialog, ffi::XAppIconChooserDialogClass>) @extends GtkWindow, gtk::Window, gtk::Widget;
+    pub struct IconChooserDialog(Object<ffi::XAppIconChooserDialog, ffi::XAppIconChooserDialogClass>) @extends GtkWindow, gtk::Window, gtk::Bin, gtk::Container, gtk::Widget, @implements gtk::Buildable;
 
     match fn {
         type_ => || ffi::xapp_icon_chooser_dialog_get_type(),
@@ -266,6 +266,9 @@ pub struct IconChooserDialogBuilder {
     //type-hint: /*Unknown type*/,
     urgency_hint: Option<bool>,
     //window-position: /*Unknown type*/,
+    border_width: Option<u32>,
+    child: Option<gtk::Widget>,
+    //resize-mode: /*Unknown type*/,
     app_paintable: Option<bool>,
     can_default: Option<bool>,
     can_focus: Option<bool>,
@@ -322,7 +325,7 @@ pub struct IconChooserDialogBuilder {
     #[cfg(any(feature = "gtk_v3_8", feature = "dox"))]
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_8")))]
     opacity: Option<f64>,
-    //parent: /*Unknown type*/,
+    parent: Option<gtk::Container>,
     receives_default: Option<bool>,
     sensitive: Option<bool>,
     //style: /*Unknown type*/,
@@ -446,6 +449,12 @@ if let Some(ref type_) = self.type_ {
 if let Some(ref urgency_hint) = self.urgency_hint {
                 properties.push(("urgency-hint", urgency_hint));
             }
+if let Some(ref border_width) = self.border_width {
+                properties.push(("border-width", border_width));
+            }
+if let Some(ref child) = self.child {
+                properties.push(("child", child));
+            }
 if let Some(ref app_paintable) = self.app_paintable {
                 properties.push(("app-paintable", app_paintable));
             }
@@ -528,6 +537,9 @@ if let Some(ref no_show_all) = self.no_show_all {
         #[cfg(any(feature = "gtk_v3_8", feature = "dox"))]
 if let Some(ref opacity) = self.opacity {
                 properties.push(("opacity", opacity));
+            }
+if let Some(ref parent) = self.parent {
+                properties.push(("parent", parent));
             }
 if let Some(ref receives_default) = self.receives_default {
                 properties.push(("receives-default", receives_default));
@@ -716,6 +728,16 @@ if let Some(ref width_request) = self.width_request {
         self
     }
 
+    pub fn border_width(mut self, border_width: u32) -> Self {
+        self.border_width = Some(border_width);
+        self
+    }
+
+    pub fn child(mut self, child: &impl IsA<gtk::Widget>) -> Self {
+        self.child = Some(child.clone().upcast());
+        self
+    }
+
     pub fn app_paintable(mut self, app_paintable: bool) -> Self {
         self.app_paintable = Some(app_paintable);
         self
@@ -859,6 +881,11 @@ if let Some(ref width_request) = self.width_request {
     #[cfg_attr(feature = "dox", doc(cfg(feature = "gtk_v3_8")))]
     pub fn opacity(mut self, opacity: f64) -> Self {
         self.opacity = Some(opacity);
+        self
+    }
+
+    pub fn parent(mut self, parent: &impl IsA<gtk::Container>) -> Self {
+        self.parent = Some(parent.clone().upcast());
         self
     }
 

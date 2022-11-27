@@ -15,7 +15,7 @@ use std::mem::transmute;
 
 glib::wrapper! {
     #[doc(alias = "XAppObject")]
-    pub struct Object(Interface<ffi::XAppObject, ffi::XAppObjectIface>);
+    pub struct Object(Interface<ffi::XAppObject, ffi::XAppObjectIface>) @requires gio::DBusObject;
 
     match fn {
         type_ => || ffi::xapp_object_get_type(),
