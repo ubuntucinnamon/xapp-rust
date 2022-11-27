@@ -12,7 +12,8 @@ single_version_file = true
 
 generate = [
 	"XApp.FavoriteInfo",
-#	"XApp.Favorites",
+	"XApp.Favorites",
+	"XApp.FavoritesItemSelectedCallback",
 	"XApp.GtkWindow",
 	"XApp.IconChooserButton",
 	"XApp.IconChooserDialog",
@@ -47,8 +48,10 @@ manual = [
 	"Gio.DBusMethodInvocation",
 #	"Gio.DBusObjectManagerClientFlags",
 	"Gio.DBusProxyFlags",
+	"GLib.DestroyNotify",
 	"GLib.Error",
 #	"GObject.ObjectClass",
+	"Gtk.Action",
 	"Gtk.IconSize",
 	"Gtk.Menu",
 	"Gtk.PackType",

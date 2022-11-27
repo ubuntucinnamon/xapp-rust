@@ -2,6 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
+mod favorites;
+pub use self::favorites::Favorites;
+
 mod gtk_window;
 pub use self::gtk_window::GtkWindow;
 
