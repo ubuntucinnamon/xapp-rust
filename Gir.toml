@@ -12,13 +12,11 @@ single_version_file = true
 
 generate = [
 	"XApp.FavoriteInfo",
-	"XApp.Favorites",
 	"XApp.FavoritesItemSelectedCallback",
 	"XApp.GtkWindow",
 	"XApp.IconChooserButton",
 	"XApp.IconChooserDialog",
 	"XApp.IconSize",
-#	"XApp.KbdLayoutController",
 	"XApp.MonitorBlanker",
 	"XApp.Object",
 	"XApp.ObjectManagerClient",
@@ -46,6 +44,7 @@ manual = [
 	"Gio.DBusInterface",
 	"Gio.DBusInterfaceInfo",
 	"Gio.DBusMethodInvocation",
+	"Gio.DBusObjectManagerClient",
 #	"Gio.DBusObjectManagerClientFlags",
 	"Gio.DBusProxyFlags",
 	"GLib.DestroyNotify",
@@ -61,3 +60,20 @@ manual = [
 	"Gtk.Window",
 	"Gtk.WindowType",
 ]
+
+[[object]]
+name = "XApp.Favorites"
+status = "generate"
+	[[object.function]]
+	name = "create_actions"
+	ignore = true
+	[[object.function]]
+	name = "create_menu"
+	ignore = true
+
+[[object]]
+name = "XApp.KbdLayoutController"
+status = "generate"
+	[[object.function]]
+	name = "render_cairo_subscript"
+	ignore = true

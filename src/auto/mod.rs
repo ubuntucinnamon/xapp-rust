@@ -14,6 +14,9 @@ pub use self::icon_chooser_button::IconChooserButton;
 mod icon_chooser_dialog;
 pub use self::icon_chooser_dialog::IconChooserDialog;
 
+mod kbd_layout_controller;
+pub use self::kbd_layout_controller::KbdLayoutController;
+
 mod monitor_blanker;
 pub use self::monitor_blanker::MonitorBlanker;
 
@@ -64,6 +67,7 @@ pub use self::enums::StatusIconState;
 #[doc(hidden)]
 pub mod traits {
     pub use super::gtk_window::GtkWindowExt;
+    pub use super::kbd_layout_controller::KbdLayoutControllerExt;
     pub use super::object::ObjectExt;
     pub use super::object_skeleton::ObjectSkeletonExt;
     pub use super::preferences_window::PreferencesWindowExt;
@@ -74,6 +78,7 @@ pub mod builders {
     pub use super::gtk_window::GtkWindowBuilder;
     pub use super::icon_chooser_button::IconChooserButtonBuilder;
     pub use super::icon_chooser_dialog::IconChooserDialogBuilder;
+    pub use super::object_manager_client::ObjectManagerClientBuilder;
     pub use super::object_proxy::ObjectProxyBuilder;
     pub use super::object_skeleton::ObjectSkeletonBuilder;
     pub use super::preferences_window::PreferencesWindowBuilder;

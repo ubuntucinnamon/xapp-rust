@@ -2,11 +2,26 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::StaticType;
+use glib::ToValue;
 use std::fmt;
 use std::ptr;
 
+#[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+glib::wrapper! {
+    #[doc(alias = "XAppObjectManagerClient")]
+    pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>) @extends gio::DBusObjectManagerClient;
+
+    match fn {
+        type_ => || ffi::xapp_object_manager_client_get_type(),
+    }
+}
+
+#[cfg(not(any(feature = "gio_v2_30", feature = "dox")))]
 glib::wrapper! {
     #[doc(alias = "XAppObjectManagerClient")]
     pub struct ObjectManagerClient(Object<ffi::XAppObjectManagerClient, ffi::XAppObjectManagerClientClass>);
@@ -31,9 +46,18 @@ impl ObjectManagerClient {
     //    unsafe { TODO: call ffi:xapp_object_manager_client_new_sync() }
     //}
 
+            // rustdoc-stripper-ignore-next
+            /// Creates a new builder-pattern struct instance to construct [`ObjectManagerClient`] objects.
+            ///
+            /// This method returns an instance of [`ObjectManagerClientBuilder`](crate::builders::ObjectManagerClientBuilder) which can be used to create [`ObjectManagerClient`] objects.
+            pub fn builder() -> ObjectManagerClientBuilder {
+                ObjectManagerClientBuilder::default()
+            }
+        
+
     //#[doc(alias = "xapp_object_manager_client_get_proxy_type")]
     //#[doc(alias = "get_proxy_type")]
-    //pub fn proxy_type(manager: /*Ignored*/&gio::DBusObjectManagerClient, object_path: &str, interface_name: Option<&str>, user_data: /*Unimplemented*/Option<Basic: Pointer>) -> glib::types::Type {
+    //pub fn proxy_type(manager: &impl IsA<gio::DBusObjectManagerClient>, object_path: &str, interface_name: Option<&str>, user_data: /*Unimplemented*/Option<Basic: Pointer>) -> glib::types::Type {
     //    unsafe { TODO: call ffi:xapp_object_manager_client_get_proxy_type() }
     //}
 
@@ -87,6 +111,93 @@ impl ObjectManagerClient {
         //    );
         //}))
     //}
+}
+
+#[derive(Clone, Default)]
+// rustdoc-stripper-ignore-next
+        /// A [builder-pattern] type to construct [`ObjectManagerClient`] objects.
+        ///
+        /// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct ObjectManagerClientBuilder {
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    bus_type: Option<gio::BusType>,
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    connection: Option<gio::DBusConnection>,
+    //flags: /*Unknown type*/,
+    //get-proxy-type-destroy-notify: /*Unknown type*/,
+    //get-proxy-type-func: /*Unknown type*/,
+    //get-proxy-type-user-data: /*Unknown type*/,
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    name: Option<String>,
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    object_path: Option<String>,
+}
+
+impl ObjectManagerClientBuilder {
+    // rustdoc-stripper-ignore-next
+    /// Create a new [`ObjectManagerClientBuilder`].
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`ObjectManagerClient`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> ObjectManagerClient {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+if let Some(ref bus_type) = self.bus_type {
+                properties.push(("bus-type", bus_type));
+            }
+        #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+if let Some(ref connection) = self.connection {
+                properties.push(("connection", connection));
+            }
+        #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+if let Some(ref name) = self.name {
+                properties.push(("name", name));
+            }
+        #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+if let Some(ref object_path) = self.object_path {
+                properties.push(("object-path", object_path));
+            }
+        glib::Object::new::<ObjectManagerClient>(&properties)
+
+    }
+
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    pub fn bus_type(mut self, bus_type: gio::BusType) -> Self {
+        self.bus_type = Some(bus_type);
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    pub fn connection(mut self, connection: &gio::DBusConnection) -> Self {
+        self.connection = Some(connection.clone());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    pub fn name(mut self, name: &str) -> Self {
+        self.name = Some(name.to_string());
+        self
+    }
+
+    #[cfg(any(feature = "gio_v2_30", feature = "dox"))]
+    #[cfg_attr(feature = "dox", doc(cfg(feature = "gio_v2_30")))]
+    pub fn object_path(mut self, object_path: &str) -> Self {
+        self.object_path = Some(object_path.to_string());
+        self
+    }
 }
 
 impl fmt::Display for ObjectManagerClient {

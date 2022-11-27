@@ -29,33 +29,6 @@ impl Favorites {
         }
     }
 
-    #[doc(alias = "xapp_favorites_create_actions")]
-    pub fn create_actions(&self, mimetypes: Option<&str>) -> Vec<gtk::Action> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::xapp_favorites_create_actions(self.to_glib_none().0, mimetypes.to_glib_none().0))
-        }
-    }
-
-    #[doc(alias = "xapp_favorites_create_menu")]
-    pub fn create_menu<P: Fn(&Favorites, &str) + 'static>(&self, mimetypes: Option<&str>, callback: P) -> Option<gtk::Widget> {
-        let callback_data: Box_<P> = Box_::new(callback);
-        unsafe extern "C" fn callback_func<P: Fn(&Favorites, &str) + 'static>(favorites: *mut ffi::XAppFavorites, uri: *const libc::c_char, user_data: glib::ffi::gpointer) {
-            let favorites = from_glib_borrow(favorites);
-            let uri: Borrowed<glib::GString> = from_glib_borrow(uri);
-            let callback: &P = &*(user_data as *mut _);
-            (*callback)(&favorites, uri.as_str());
-        }
-        let callback = Some(callback_func::<P> as _);
-        unsafe extern "C" fn func_func<P: Fn(&Favorites, &str) + 'static>(data: glib::ffi::gpointer) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
-        }
-        let destroy_call4 = Some(func_func::<P> as _);
-        let super_callback0: Box_<P> = callback_data;
-        unsafe {
-            from_glib_full(ffi::xapp_favorites_create_menu(self.to_glib_none().0, mimetypes.to_glib_none().0, callback, Box_::into_raw(super_callback0) as *mut _, destroy_call4))
-        }
-    }
-
     #[doc(alias = "xapp_favorites_find_by_display_name")]
     pub fn find_by_display_name(&self, display_name: &str) -> Option<FavoriteInfo> {
         unsafe {
